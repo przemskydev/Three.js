@@ -28,7 +28,7 @@ const createLight = (int = 1, color = 0xffffff) => {
 const createSphere = (r = 1, color = 0xffffff) => {
   const geometry = new THREE.SphereGeometry(r, 32, 32);
   const material = new THREE.MeshLambertMaterial({
-    color,
+    color
   })
   return new THREE.Mesh(geometry, material)
 };

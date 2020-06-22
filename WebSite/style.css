@@ -5,6 +5,10 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 canvas {
@@ -13,14 +17,11 @@ canvas {
 
 h1 {
   position: absolute;
-  top: 2em;
-  left: 2em;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Megrim', cursive;
   font-weight: 100;
   font-size: 8em;
   text-transform: uppercase;
-  width: auto;
   line-height: 0.8em;
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 0.2em;
 }
