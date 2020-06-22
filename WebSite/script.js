@@ -1,16 +1,58 @@
+
 let scene, camera, renderer;
 
-scene = new THREE.Scene();
-camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
-camera.position.set(0, 0, 5);
-renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  alpha: true
-});
-// renderer.setClearColor("hsl(194, 89%, 73%)");
-renderer.setSize(window.innerWidth, window.innerHeight);
+init()
 
-document.body.appendChild(renderer.domElement);
+function init() {
+
+  //scene
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
+  camera.position.set(0, 0, 8);
+
+  renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true
+  });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  //world
+  const createSphere = (r = 1, color = 0xffffff) => {
+    const geometry = new THREE.SphereGeometry(r, 32, 32);
+    const material = new THREE.MeshLambertMaterial({
+      color
+    })
+    return new THREE.Mesh(geometry, material)
+  };
+
+  const createBox = (w = 1, h = 1, d = 1, color = 0xffffff) => {
+    const geometry = new THREE.BoxGeometry(w, h, d);
+    const material = new THREE.MeshLambertMaterial(color);
+    return new THREE.Mesh(geometry, material)
+  };
+
+  //lights
+  const createLight = (int = 1, color = 0xffffff) => {
+    return new THREE.PointLight(color, int)
+  };
+
+  const light = createLight(1.6, 0xffffff);
+  light.position.set(10, 5, -15);
+
+  const light2 = createLight(1.3, 0xffffff);
+  light2.position.set(-15, -20, 25);
+
+  //creating world
+  for (let index = 0; index < 20; index++) {
+    const box = createBox();
+    box.position.x = (Math.random() - .5) * 10;
+    box.position.y = (Math.random() - .5) * 10;
+    box.position.z = (Math.random() - .5) * 10;
+    scene.add(box, light, light2)
+  }
+}
 
 const handleResize = () => {
   //Adjusting the window size
@@ -21,37 +63,6 @@ const handleResize = () => {
   camera.updateProjectionMatrix();
 }
 
-const createLight = (int = 1, color = 0xffffff) => {
-  return new THREE.PointLight(color, int)
-};
-
-const createSphere = (r = 1, color = 0xffffff) => {
-  const geometry = new THREE.SphereGeometry(r, 32, 32);
-  const material = new THREE.MeshLambertMaterial({
-    color
-  })
-  return new THREE.Mesh(geometry, material)
-};
-
-const createBox = (w = 1, h = 1, d = 1, color = 0xffffff) => {
-  const geometry = new THREE.BoxGeometry(w, h, d);
-  const material = new THREE.MeshLambertMaterial(color);
-  return new THREE.Mesh(geometry, material)
-};
-
-const light = createLight(1.6, 0xffffff);
-light.position.set(10, 5, -15);
-
-const light2 = createLight(1.3, 0xffffff);
-light2.position.set(-15, -20, 25)
-
-for (let index = 0; index < 20; index++) {
-  const box = createBox();
-  box.position.x = (Math.random() - .5) * 10;
-  box.position.y = (Math.random() - .5) * 10;
-  box.position.z = (Math.random() - .5) * 10;
-  scene.add(box, light, light2)
-}
 
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
@@ -76,12 +87,12 @@ function onMouseMove(e) {
     timeline.to(intersects[i].object.scale, .5, { y: .8, ease: Expo.easeOut });
   }
 }
-// console.log(box)
+
 window.addEventListener('mousemove', onMouseMove)
 
 const loop = () => {
   requestAnimationFrame(loop);
-  // box.rotation.z += 0.01;
+
   renderer.render(scene, camera);
 };
 

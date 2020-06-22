@@ -5,11 +5,13 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "lite-server"
+    "dev": "lite-server",
+    "build": "browserify script.js -o bundle.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browserify": "^16.5.1",
     "lite-server": "^2.5.4"
   }
 }
