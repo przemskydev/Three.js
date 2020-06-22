@@ -1,0 +1,19 @@
+{
+  "name": "13-solar",
+  "version": "0.1.0",
+  "description": "Three.js",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/przemskydev/SolarSystem.git"
+  },
+  "author": "Przemsky",
+  "license": "MIT",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
