@@ -8,10 +8,11 @@ let scene, camera, renderer, controls;
 
 //scene
 scene = new THREE.Scene();
+scene.background = new THREE.Color(0xcccccc);
 
 //camera
-camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
-camera.position.set(14, 7, 0)
+camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000);
+camera.position.set(25, 8, 25)
 
 //renderer
 renderer = new THREE.WebGLRenderer({
@@ -23,7 +24,8 @@ document.body.appendChild(renderer.domElement);
 //controls
 controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
-
+controls.minDistance = 20;
+controls.maxDistance = 40;
 /*
 
 world
@@ -31,14 +33,21 @@ world
 */
 
 //geometry
-const createBox = (w = 1, h = 1, d = 1, color = 0xffffff) => {
+const createBox = (w = 1, h = 1, d = 1, color = 0xffffff, wireframe = false) => {
   const geometry = new THREE.BoxGeometry(w, h, d);
-  const material = new THREE.MeshLambertMaterial(color);
+  const material = new THREE.MeshLambertMaterial({ color, wireframe: wireframe });
   return new THREE.Mesh(geometry, material)
 };
 
-const box = createBox();
-box.position.set(-2, 1, 0)
+
+const createSphere = (r = 1, color = 0xffffff, wireframe = false) => {
+  const geometry = new THREE.SphereGeometry(r, 32, 32);
+  const material = new THREE.MeshLambertMaterial({
+    color,
+    wireframe: wireframe
+  })
+  return new THREE.Mesh(geometry, material)
+};
 
 //light
 const createLight = (int = 1, color = 0xffffff) => {
@@ -55,12 +64,15 @@ light2.position.set(-15, -20, 25);
 
 
 //creating world
-for (let index = 0; index < 20; index++) {
+const motherBox = createBox(22, 22, 22, 0xA9A9A9, true)
+scene.add(motherBox)
+
+for (let index = 0; index < 100; index++) {
   const box = createBox();
-  box.position.x = (Math.random() - .5) * 10;
-  box.position.y = (Math.random() - .5) * 10;
-  box.position.z = (Math.random() - .5) * 10;
-  scene.add(box, light, light2)
+  box.position.x = Math.random() * 20 - 10;
+  box.position.y = Math.random() * 20 - 10;
+  box.position.z = Math.random() * 20 - 10;
+  motherBox.add(box, light, light2)
 }
 
 //functionality
@@ -76,7 +88,7 @@ function onMouseMove(e) {
 
   raycaster.setFromCamera(mouse, camera);
 
-  const intersects = raycaster.intersectObjects(scene.children);
+  const intersects = raycaster.intersectObjects(motherBox.children);
 
   function numGen() {
     // let num = Math.floor(Math.random() * 2) + 1;
@@ -86,7 +98,7 @@ function onMouseMove(e) {
   }
 
   for (let i = 0; i < intersects.length; i++) {
-      // intersects[ i ].object.material.color.set( 0xff0000 );
+    // intersects[ i ].object.material.color.set( 0xff0000 );
     const timeline = new TimelineMax();
     timeline.to(intersects[i].object.scale, .5, { x: 2, ease: Expo.easeInOut });
     timeline.to(intersects[i].object.scale, .5, { x: 1, ease: Expo.easeInOut });
