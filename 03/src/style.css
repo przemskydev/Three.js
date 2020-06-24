@@ -1,7 +1,4 @@
-/* body {
-  background-color: aquamarine;
+body {
+  margin: 0;
+  overflow: hidden;
 }
-
-h1 {
-  font-size: 50px;
-} */

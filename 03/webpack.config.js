@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: './src/script.js',
@@ -15,9 +15,10 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: 'css-loader'
-        }),
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
       },
     ],
   },
@@ -26,6 +27,5 @@ module.exports = {
       template: "./src/index.html",
       filename: './index.html'
     }),
-    new ExtractTextPlugin('style.css')
   ],
 };
