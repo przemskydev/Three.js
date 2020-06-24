@@ -1,5 +1,4 @@
 let scene, camera, renderer;
-
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.01, 10000);
 camera.position.set(0, 0, 50);
