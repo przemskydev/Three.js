@@ -1,5 +1,5 @@
-import style from './style.css';
 import * as THREE from 'three';
+import style from './style.css';
 
 //variables
 let container,
@@ -7,13 +7,11 @@ let container,
   camera,
   renderer,
   loader,
+  clock,
   light1,
   light2,
-  light3,
-  light4,
-  object,
-  controls,
-  poratalVortex = [];
+  poratalVortex = [],
+  poratalBgVortex = [];
 
 //container
 container = document.createElement('div');
@@ -24,7 +22,7 @@ scene = new THREE.Scene();
 scene.background = new THREE.Color(0x141414);
 
 //camera
-camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.set(0.0, 0.0, 1000);
 scene.add(camera)
 
@@ -39,22 +37,28 @@ light1 = new THREE.DirectionalLight(0xffffff, 0.5);
 light1.position.set(0, 0, 1);
 scene.add(light1)
 
+light2 = new THREE.PointLight(0x062d89, 20, 600, 1.7);
+light2.position.set(0, 0, 250);
+scene.add(light2)
 //loader
 
 loader = new THREE.TextureLoader();
-
 loader.load(
   'textures/smoke.png',
   function (texture) {
+    //define the shape
     const geometry = new THREE.PlaneBufferGeometry(350, 350);
+    const geometryBg = new THREE.PlaneBufferGeometry(1000, 1000);
+    //define the surface appearance
     const material = new THREE.MeshStandardMaterial({
       map: texture,
       transparent: true
     })
-
-    for (let i = 880 ; i > 250; i--) {
+    //creating a loop to create a lot of smoke particles and place it along the spiral line
+    for (let i = 900; i > 250; i--) {
       const portal = new THREE.Mesh(geometry, material);
       portal.position.set(
+        //spiral setting
         .5 * i * Math.cos((4 * i * Math.PI) / 180),
         .5 * i * Math.sin((4 * i * Math.PI) / 180),
         .1 * i
@@ -62,6 +66,19 @@ loader.load(
       portal.rotation.z = Math.random() * 360;
       poratalVortex.push(portal)
       scene.add(portal)
+    };
+
+    for (let i = 0; i < 40; i++ ){
+      const portalBg = new THREE.Mesh(geometryBg, material);
+      portalBg.position.set(
+        Math.random() * 1000 - 500,
+        Math.random() * 400 - 200,
+        25
+      )
+      portalBg.rotation.z = Math.random() * 360;
+      portalBg.material.opacity = 0.4;
+      poratalBgVortex.push(portalBg)
+      scene.add(portalBg)
     }
   }
 )
@@ -75,18 +92,27 @@ const handleResize = () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
 }
-console.log(poratalVortex)
+
 //animation loop
+//clock object to keep track of the time
+clock = new THREE.Clock();
+
 const loop = () => {
   requestAnimationFrame(loop);
-
-  let clock = new THREE.Clock();
-
+  //control the movement of the object in the scene during animation
   let delta = clock.getDelta();
 
-  poratalVortex.forEach(portal => {
-    portal.rotation.z -= delta * 1.5
+  poratalVortex.forEach(p => {
+    p.rotation.z -= delta * 1.5
   })
+
+  poratalBgVortex.forEach(p => {
+    p.rotation.z -= delta * 0.2
+  })
+
+  if (Math.random() > 0.8) {
+    light2.power = 200 + Math.random() * 350;
+  }
 
   renderer.render(scene, camera);
 };
