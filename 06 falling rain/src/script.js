@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import style from './style.css';
-import { Int8Attribute } from 'three';
 
 //variables
 let container,
@@ -11,10 +10,16 @@ let container,
   clock,
   light1,
   light2,
+  flash,
   cloud,
   cloudGeo,
   cloudMat,
-  cloudVortex = [];
+  cloudVortex = [],
+  rainGeo,
+  rainMat,
+  raining,
+  badWeather,
+  rainDrops = 15000;
 
 init();
 function init() {
@@ -27,7 +32,7 @@ function init() {
   scene.background = new THREE.Color(0x141414);
   scene.fog = new THREE.FogExp2(0x11111f, 0.002)
   //camera
-  camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.set(0, 0, 1);
   camera.rotation.set(1.16, -0.12, 0.27)
   scene.add(camera)
@@ -38,6 +43,10 @@ function init() {
   light2 = new THREE.DirectionalLight(0xffeedd)
   light2.position.set(0, 0, 1)
   scene.add(light1, light2)
+
+  flash = new THREE.PointLight(0x062d89, 30, 500, 1.7);
+  flash.position.set(200, 300, 100);
+  scene.add(flash);
 
   //renderer
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -75,6 +84,28 @@ function clouds() {
     })
 }
 
+//rain functionality
+rain();
+function rain() {
+  rainGeo = new THREE.Geometry();
+  rainMat = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 0.1,
+    transparent: true
+  });
+
+  for (let i = 0; i < rainDrops; i++) {
+    raining = new THREE.Vector3(
+      Math.random() * 400 - 200,
+      Math.random() * 500 - 250,
+      Math.random() * 400 - 200
+    )
+    rainGeo.vertices.push(raining)
+  }
+
+  badWeather = new THREE.Points(rainGeo, rainMat);
+  scene.add(badWeather)
+}
 
 //animation loop
 
@@ -84,6 +115,15 @@ const loop = () => {
   cloudVortex.forEach(cloud => {
     cloud.rotation.z += 0.002
   })
+
+  if (Math.random() > 0.95) {
+    flash.position.set(
+      Math.random() * 400,
+      300 + Math.random() * 200,
+      100
+    );
+    flash.power = 40 + Math.random() * 800;
+  }
 
   renderer.render(scene, camera);
 };
