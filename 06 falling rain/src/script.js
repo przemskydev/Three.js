@@ -100,9 +100,9 @@ function rain() {
       Math.random() * 500 - 250,
       Math.random() * 400 - 200
     )
+    raining.velocity = 0;
     rainGeo.vertices.push(raining)
   }
-
   badWeather = new THREE.Points(rainGeo, rainMat);
   scene.add(badWeather)
 }
@@ -124,6 +124,16 @@ const loop = () => {
     );
     flash.power = 40 + Math.random() * 800;
   }
+
+  rainGeo.vertices.forEach(drop => {
+    drop.velocity -= 0.1 + Math.random() * 0.1;
+    drop.y += drop.velocity;
+    if (drop.y < -200) {
+      drop.y = 200;
+      drop.velocity = 0;
+    }
+    rainGeo.verticesNeedUpdate = true;
+  })
 
   renderer.render(scene, camera);
 };
