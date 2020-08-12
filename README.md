@@ -14,7 +14,7 @@ Fascinated by the possibilities of the javascript 3D library 'Three.js', I have 
 
 ![Hello World Page](https://i.imgur.com/jsgPUim.mp4)
 
-![Cube](https://imgur.com/yiHOArp)
+![Cube](https://i.imgur.com/yiHOArp.gif)
 
 ![Walt Disney Head](https://imgur.com/5khnIWP)
 
@@ -22,7 +22,7 @@ Fascinated by the possibilities of the javascript 3D library 'Three.js', I have 
 
 ![Raining Weather](https://imgur.com/BaRkwxI)
 
-![Sculpture](https://imgur.com/KZ1wVnF)
+![Sculpture](https://i.imgur.com/KZ1wVnF.png)
 
 
 ## Author
