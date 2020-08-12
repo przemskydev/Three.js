@@ -12,7 +12,7 @@ Fascinated by the possibilities of the javascript 3D library 'Three.js', I have 
 
 ### Screenshots
 
-![Hello World Page](https://imgur.com/jsgPUim)
+![Hello World Page](https://i.imgur.com/jsgPUim.mp4)
 
 ![Cube](https://imgur.com/yiHOArp)
 
