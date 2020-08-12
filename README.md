@@ -12,15 +12,15 @@ Fascinated by the possibilities of the javascript 3D library 'Three.js', I have 
 
 ### Screenshots
 
-![Hello World Page](https://i.imgur.com/jsgPUim.mp4)
+![Hello World Page](https://media.giphy.com/media/L4aF6rY5xWy1CAgEUa/giphy.gif)
 
-![Cube](https://i.imgur.com/yiHOArp.gif)
+![Cube](https://media.giphy.com/media/TFBkFF0kOf71qGBOBO/giphy.gif)
 
 ![Walt Disney Head](https://media.giphy.com/media/dUMpI9ooxjfGH69lXy/giphy.gif)
 
-![Rotating Portal](https://imgur.com/cDF5ivG)
+![Rotating Portal](https://media.giphy.com/media/J3QsqyOvZqJVWjJZ7F/giphy.gif)
 
-![Raining Weather](https://imgur.com/BaRkwxI)
+![Raining Weather](https://media.giphy.com/media/VeTv4CO6SASvvkpsNE/giphy.gif)
 
 ![Sculpture](https://i.imgur.com/KZ1wVnF.png)
 
