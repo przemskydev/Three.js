@@ -16,7 +16,7 @@ Fascinated by the possibilities of the javascript 3D library 'Three.js', I have 
 
 ![Cube](https://i.imgur.com/yiHOArp.gif)
 
-![Walt Disney Head](https://giphy.com/embed/dUMpI9ooxjfGH69lXy)
+![Walt Disney Head](https://media.giphy.com/media/dUMpI9ooxjfGH69lXy/giphy.gif)
 
 ![Rotating Portal](https://imgur.com/cDF5ivG)
 
